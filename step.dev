@@ -1,3 +1,9 @@
+https://www.youtube.com/watch?v=7vBSeFjJCww
+
 npx create-next-app next-mysql-crud
 
 npm i mysql2 axios 
+
+npm install -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p 
