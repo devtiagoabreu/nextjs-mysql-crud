@@ -1,25 +1,28 @@
 import axios from 'axios';
-import {ProductForm} from '../components/ProductForm'
+import Link from 'next/link';
+import { Layout } from '../components/Layout';
 
-function HomePage({products}) {
-  console.log(products);
+function HomePage({ products }) {
   return (
-    <div>      
-      <ProductForm/>
-      {products.map(product => (
-        <div key={product.id}>
-          <h1>{product.name}</h1>
-          <p>{product.description}</p>
-          <p>{product.price}</p>
-        </div>
+    <Layout>
+      {products.map((product) => (
+        <Link href={`/products/${product.id}`} key={product.id}>
+          <a>
+            <div className="border boder-gray-200 shadow-md p-6">
+              <h1>{product.name}</h1>
+              <p>{product.description}</p>
+              <p>{product.price}</p>
+            </div>
+          </a>
+        </Link> 
       ))}
-    </div>
-  ) 
+    </Layout>
+  );
 }
 
 export const getServerSideProps = async (context) => {
-  
-  const { data: products } = await axios.get(process.env.API_LOCAL_URL+'products')
+
+  const { data: products } = await axios.get(process.env.API_LOCAL_URL + 'products');
 
   return {
     props: {
