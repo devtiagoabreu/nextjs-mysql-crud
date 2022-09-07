@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 const getAllProducts = async (req, res) => {
     const [result] = await pool.query('SELECT * FROM product'); 
     console.log(result)
-    return res.status(200).json('Getting products');
+    return res.status(200).json(result);
 };
 
 const saveProduct = async (req, res) => {
