@@ -7,6 +7,7 @@ export default async function handler(req, res) {
             return await getAllProducts(req, res)
         case 'POST':
             return await saveProduct(req, res)
+        
     }
 }
 
