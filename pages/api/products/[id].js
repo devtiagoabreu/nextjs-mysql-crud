@@ -16,19 +16,27 @@ export default async function handler(req,res) {
 }
 
 const getProduct = async (req, res) => {
-    
-    const { id } = req.query;
-    const [result] = await pool.query('SELECT * FROM product WHERE id = ?', [id]);
+    try {
 
-    return res.status(200).json(result[0]);
+        const { id } = req.query;
+        const [result] = await pool.query('SELECT * FROM product WHERE id = ?', [id]);
+        return res.status(200).json(result[0]);
+        
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 }
 
 const deleteProduct = async (req, res) => {
-    
-    const { id } = req.query;
-    const [result] = await pool.query('DELETE FROM product WHERE id = ?', [id]);
+    try {
 
-    return res.status(204).json();
+        const { id } = req.query;
+        await pool.query('DELETE FROM product WHERE id = ?', [id]);
+        return res.status(204).json();
+        
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 }
 
 const updateProduct = async (req, res) => {
@@ -39,7 +47,7 @@ const updateProduct = async (req, res) => {
         await pool.query('UPDATE product SET name = ?, description = ?, price = ? WHERE id = ?', [name, description, price, id]);
         return res.status(204).json();
     } catch (error) {
-        console.error('Erro ao atualizar produto! Detalhes: ' + error.message);
+        return res.status(500).json({ message: error.message });
     }
     
 }

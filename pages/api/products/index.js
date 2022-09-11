@@ -12,27 +12,39 @@ export default async function handler(req, res) {
 }
 
 const getAllProducts = async (req, res) => {
-    const [result] = await pool.query('SELECT * FROM product'); 
-    console.log(result)
-    return res.status(200).json(result);
+    try {
+        const [result] = await pool.query('SELECT * FROM product'); 
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ error });
+    }
 };
 
 const saveProduct = async (req, res) => {
-    const {name, description, price} = req.body  
         
-    const [result] = await pool.query('INSERT INTO product SET ?', {
-        name, 
-        description, 
-        price,
-    });
+    try {
+        const {name, description, price} = req.body
 
-    return res
-        .status(200)
-        .json({
+        const number = parseFloat(price);
+
+        const [result] = await pool.query('INSERT INTO product SET ?', {
             name, 
             description, 
             price,
-            id: result.insertId
         });
+    
+        return res
+            .status(200)
+            .json({
+                name, 
+                description, 
+                price,
+                id: result.insertId
+            });
+
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+
 };
     
