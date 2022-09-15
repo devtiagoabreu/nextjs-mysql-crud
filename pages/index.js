@@ -1,21 +1,19 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { Layout } from '../components/Layout';
+import { ProductCard } from '../components/ProductCard';
+
+
 
 function HomePage({ products }) {
+
   return (
     <Layout>
-      {products.map((product) => (
-        <Link href={`/products/${product.id}`} key={product.id}>
-          <a>
-            <div className="border boder-gray-200 shadow-md p-6">
-              <h1>{product.name}</h1>
-              <p>{product.description}</p>
-              <p>{product.price}</p>
-            </div>
-          </a>
-        </Link> 
-      ))}
+      <div className="grid gap-2 grid-cols-1 md:grid-cols-4">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </Layout>
   );
 }
