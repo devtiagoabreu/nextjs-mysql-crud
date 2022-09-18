@@ -26,7 +26,7 @@ export function ProductForm() {
                 await axios.post('/api/products', product);
                 toast.success('Produto adicionado com sucesso!');
             }
-            router.push('/');
+            router.push('/products');
         } catch (error) {
             toast.error('Erro ao atualizar ou adicionar o produto, detalhes: ' + error.response.data.message);
         }

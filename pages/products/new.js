@@ -1,5 +1,5 @@
-import { Layout } from '../components/Layout';
-import {ProductForm} from '../components/ProductForm'
+import { Layout } from '../../components/Layout';
+import {ProductForm} from '../../components/ProductForm'
 
 function NewPage() {
   return (
